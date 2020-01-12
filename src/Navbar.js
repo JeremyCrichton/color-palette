@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import './Navbar.css';
@@ -23,7 +24,7 @@ const Navbar = ({ level, handleChangeLevel, changeFormat }) => {
   return (
     <header className="Navbar">
       <div className="logo">
-        <a href="#!">colorpicker</a>
+        <Link to="/">colorpicker</Link>
       </div>
       <div className="slider-container">
         <span>Level: {level}</span>
