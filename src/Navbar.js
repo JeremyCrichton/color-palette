@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import './Navbar.css';
 
-const Navbar = ({ level, changeLevel }) => {
+import { Select, MenuItem } from '@material-ui/core';
+
+const Navbar = ({ level, handleChangeLevel, changeFormat }) => {
+  const [format, setFormat] = useState('hex');
+
+  const handleChangeFormat = e => {
+    setFormat(e.target.value);
+    changeFormat(e.target.value);
+  };
+
   return (
     <header className="Navbar">
       <div className="logo">
@@ -17,7 +26,7 @@ const Navbar = ({ level, changeLevel }) => {
             min={100}
             max={900}
             step={100}
-            onAfterChange={changeLevel}
+            onAfterChange={handleChangeLevel}
             handleStyle={{
               backgroundColor: 'green',
               outline: 'none',
@@ -30,6 +39,13 @@ const Navbar = ({ level, changeLevel }) => {
             }}
           />
         </div>
+      </div>
+      <div className="select-container">
+        <Select value={format} onChange={handleChangeFormat}>
+          <MenuItem value="hex">HEX - #ffffff</MenuItem>
+          <MenuItem value="rgb">RGB - rgb(255,255,255)</MenuItem>
+          <MenuItem value="rgba">RGBA -rgba(255,255,255, 0)</MenuItem>
+        </Select>
       </div>
     </header>
   );
