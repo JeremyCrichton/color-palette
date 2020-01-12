@@ -3,14 +3,21 @@ import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import './Navbar.css';
 
-import { Select, MenuItem } from '@material-ui/core';
+import { Select, MenuItem, Snackbar, IconButton } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 
 const Navbar = ({ level, handleChangeLevel, changeFormat }) => {
   const [format, setFormat] = useState('hex');
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   const handleChangeFormat = e => {
     setFormat(e.target.value);
+    setSnackbarOpen(true);
     changeFormat(e.target.value);
+  };
+
+  const closeSnackbar = () => {
+    setSnackbarOpen(false);
   };
 
   return (
@@ -47,6 +54,26 @@ const Navbar = ({ level, handleChangeLevel, changeFormat }) => {
           <MenuItem value="rgba">RGBA -rgba(255,255,255, 0)</MenuItem>
         </Select>
       </div>
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        message={
+          <span id="message-id">Format changed to {format.toUpperCase()}</span>
+        }
+        ContentProps={{ 'aria-describedby': 'message-id' }}
+        onClose={closeSnackbar}
+        action={[
+          <IconButton
+            onClick={closeSnackbar}
+            color="inherit"
+            key="close"
+            aria-label="close"
+          >
+            <CloseIcon />
+          </IconButton>
+        ]}
+      />
     </header>
   );
 };
