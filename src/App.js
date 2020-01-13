@@ -1,9 +1,10 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import Palette from './Palette';
 import seedColors from './seedColors';
+import Palette from './Palette';
 import PaletteList from './PaletteList';
+import SingleColorPalette from './SingleColorPalette';
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
         <Palette />
       </Route>
       <Route exact path="/palette/:paletteId/:colorId">
-        <h1>Single color page</h1>
+        <SingleColorPalette />
       </Route>
     </Switch>
   );
