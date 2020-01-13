@@ -1,12 +1,22 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
+import seedColors from './seedColors';
+import { generatePalette } from './colorHelpers';
 import Navbar from './Navbar';
 import ColorBox from './ColorBox';
 import './Palette.css';
 
-const Palette = props => {
+const Palette = () => {
   const [level, setLevel] = useState(500);
   const [format, setFormat] = useState('hex');
+  const { id } = useParams();
+
+  const findPalette = pid => {
+    return seedColors.find(palette => palette.id === pid);
+  };
+
+  const palette = generatePalette(findPalette(id));
 
   const changeLevel = lev => {
     setLevel(lev);
@@ -16,7 +26,7 @@ const Palette = props => {
     setFormat(fmt);
   };
 
-  const colorBoxes = props.palette.colors[level].map(color => (
+  const colorBoxes = palette.colors[level].map(color => (
     <ColorBox key={color.id} background={color[format]} name={color.name} />
   ));
 
@@ -29,8 +39,8 @@ const Palette = props => {
       />
       <div className="Palette-colors">{colorBoxes}</div>
       <footer className="Palette-footer">
-        {props.palette.paletteName}
-        <span className="emoji">{props.palette.emoji}</span>
+        {palette.paletteName}
+        <span className="emoji">{palette.emoji}</span>
       </footer>
     </div>
   );

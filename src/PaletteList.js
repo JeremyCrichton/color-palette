@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
 import MiniPalette from './MiniPalette';
@@ -34,8 +35,9 @@ const useStyles = makeStyles({
   }
 });
 
-const PaletteList = ({ palettes, history }) => {
+const PaletteList = ({ palettes }) => {
   const classes = useStyles();
+  const history = useHistory();
 
   const goToPalette = id => {
     history.push(`/palette/${id}`);
