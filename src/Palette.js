@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import seedColors from './seedColors';
-import { generatePalette } from './colorHelpers';
+import { generatePalette, findPalette } from './colorHelpers';
 import Navbar from './Navbar';
 import ColorBox from './ColorBox';
 import './Palette.css';
@@ -11,12 +11,7 @@ const Palette = () => {
   const [level, setLevel] = useState(500);
   const [format, setFormat] = useState('hex');
   const { id } = useParams();
-
-  const findPalette = pid => {
-    return seedColors.find(palette => palette.id === pid);
-  };
-
-  const palette = generatePalette(findPalette(id));
+  const palette = generatePalette(findPalette(id, seedColors));
 
   const changeLevel = lev => {
     setLevel(lev);
@@ -33,6 +28,7 @@ const Palette = () => {
       name={color.name}
       colorId={color.id}
       paletteId={id}
+      showLink
     />
   ));
 

@@ -2,6 +2,26 @@ import chroma from 'chroma-js';
 
 const levels = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
 
+// Return an array w/ 3 color values: dark, actual, white
+function getRange(hexColor) {
+  const end = '#fff';
+  return [
+    chroma(hexColor)
+      .darken(1.4)
+      .hex(),
+    hexColor,
+    end
+  ];
+}
+
+// Return a # of colors based on a single hexColor
+function getScale(hexColor, numberOfColors) {
+  return chroma
+    .scale(getRange(hexColor))
+    .mode('lab')
+    .colors(numberOfColors);
+}
+
 function generatePalette(starterPalette) {
   let newPalette = {
     paletteName: starterPalette.paletteName,
@@ -31,24 +51,22 @@ function generatePalette(starterPalette) {
   return newPalette;
 }
 
-// Return an array w/ 3 color values: dark, actual, white
-function getRange(hexColor) {
-  const end = '#fff';
-  return [
-    chroma(hexColor)
-      .darken(1.4)
-      .hex(),
-    hexColor,
-    end
-  ];
-}
+// Find a palette by ID
+const findPalette = (pid, colors) => {
+  return colors.find(palette => palette.id === pid);
+};
 
-// Return a # of colors based on a single hexColor
-function getScale(hexColor, numberOfColors) {
-  return chroma
-    .scale(getRange(hexColor))
-    .mode('lab')
-    .colors(numberOfColors);
-}
+const gatherShades = (palette, colorToFilterBy) => {
+  let shades = [];
+  let allColors = palette.colors;
 
-export { generatePalette };
+  for (let key in allColors) {
+    shades = shades.concat(
+      allColors[key].filter(color => color.id === colorToFilterBy)
+    );
+  }
+
+  return shades.slice(1);
+};
+
+export { findPalette, generatePalette, gatherShades };
