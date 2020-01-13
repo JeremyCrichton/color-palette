@@ -7,7 +7,7 @@ import MiniPalette from './MiniPalette';
 const useStyles = makeStyles({
   root: {
     backgroundColor: 'blue',
-    height: '100%',
+    height: '100vh',
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'center'
@@ -15,7 +15,6 @@ const useStyles = makeStyles({
   container: {
     width: '50%',
     display: 'flex',
-    alignItems: 'flex-start',
     flexDirection: 'column',
     flexWrap: 'wrap',
     border: '1px solid white'
@@ -26,6 +25,7 @@ const useStyles = makeStyles({
     width: '100%',
     justifyContent: 'space-between'
   },
+  title: {},
   palettes: {
     boxSizing: 'border-box',
     width: '100%',
@@ -42,7 +42,7 @@ const PaletteList = ({ palettes }) => {
     <div className={classes.root}>
       <div className={classes.container}>
         <nav className={classes.nav}>
-          <h1>React Colors</h1>
+          <h1 className={classes.title}>React Colors</h1>
         </nav>
         <div className={classes.palettes}>
           {palettes.map(palette => (
