@@ -11,8 +11,11 @@ function App() {
       <Route exact path="/">
         <PaletteList palettes={seedColors} />
       </Route>
-      <Route path="/palette/:id">
+      <Route exact path="/palette/:id">
         <Palette />
+      </Route>
+      <Route exact path="/palette/:paletteId/:colorId">
+        <h1>Single color page</h1>
       </Route>
     </Switch>
   );
