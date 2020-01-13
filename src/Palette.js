@@ -5,6 +5,7 @@ import seedColors from './seedColors';
 import { generatePalette, findPalette } from './colorHelpers';
 import Navbar from './Navbar';
 import ColorBox from './ColorBox';
+import Footer from './Footer';
 import './Palette.css';
 
 const Palette = () => {
@@ -38,12 +39,10 @@ const Palette = () => {
         level={level}
         handleChangeLevel={changeLevel}
         changeFormat={changeFormat}
+        showSlider
       />
       <div className="Palette-colors">{colorBoxes}</div>
-      <footer className="Palette-footer">
-        {palette.paletteName}
-        <span className="emoji">{palette.emoji}</span>
-      </footer>
+      <Footer paletteName={palette.paletteName} emoji={palette.emoji} />
     </div>
   );
 };

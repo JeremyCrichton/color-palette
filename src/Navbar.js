@@ -7,7 +7,7 @@ import './Navbar.css';
 import { Select, MenuItem, Snackbar, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
-const Navbar = ({ level, handleChangeLevel, changeFormat }) => {
+const Navbar = ({ level, handleChangeLevel, changeFormat, showSlider }) => {
   const [format, setFormat] = useState('hex');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
@@ -26,28 +26,30 @@ const Navbar = ({ level, handleChangeLevel, changeFormat }) => {
       <div className="logo">
         <Link to="/">colorpicker</Link>
       </div>
-      <div className="slider-container">
-        <span>Level: {level}</span>
-        <div className="slider">
-          <Slider
-            defaultValue={level}
-            min={100}
-            max={900}
-            step={100}
-            onAfterChange={handleChangeLevel}
-            handleStyle={{
-              backgroundColor: 'green',
-              outline: 'none',
-              border: '2px solid green',
-              boxShadow: 'none',
-              width: '13px',
-              height: '13px',
-              marginLeft: '7px',
-              marignTop: '-3px'
-            }}
-          />
+      {showSlider && (
+        <div className="slider-container">
+          <span>Level: {level}</span>
+          <div className="slider">
+            <Slider
+              defaultValue={level}
+              min={100}
+              max={900}
+              step={100}
+              onAfterChange={handleChangeLevel}
+              handleStyle={{
+                backgroundColor: 'green',
+                outline: 'none',
+                border: '2px solid green',
+                boxShadow: 'none',
+                width: '13px',
+                height: '13px',
+                marginLeft: '7px',
+                marignTop: '-3px'
+              }}
+            />
+          </div>
         </div>
-      </div>
+      )}
       <div className="select-container">
         <Select value={format} onChange={handleChangeFormat}>
           <MenuItem value="hex">HEX - #ffffff</MenuItem>
