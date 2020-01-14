@@ -1,32 +1,13 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 
 import seedColors from './seedColors';
 import { generatePalette, findPalette } from './colorHelpers';
+import useStyles from './styles/PaletteStyles';
+
 import Navbar from './Navbar';
 import ColorBox from './ColorBox';
-import Footer from './Footer';
-import './Palette.css';
-
-const useStyles = makeStyles({
-  Palette: {
-    height: '100vh',
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  colors: {
-    height: '90%'
-  }
-  // footer: {
-  //   backgroundColor: 'white',
-  //   height: '5vh',
-  //   display: 'flex',
-  //   justifyContent: 'flex-end',
-  //   alignItems: 'center',
-  //   fontWeight: 'bold'
-  // }
-});
+import PaletteFooter from './PaletteFooter';
 
 const Palette = () => {
   const [level, setLevel] = useState(500);
@@ -64,7 +45,7 @@ const Palette = () => {
         showSlider
       />
       <div className={classes.colors}>{colorBoxes}</div>
-      <Footer paletteName={palette.paletteName} emoji={palette.emoji} />
+      <PaletteFooter paletteName={palette.paletteName} emoji={palette.emoji} />
     </div>
   );
 };
