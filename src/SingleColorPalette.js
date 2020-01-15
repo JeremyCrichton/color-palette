@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-import seedColors from './seedColors';
 import { findPalette, generatePalette, gatherShades } from './colorHelpers';
 import useStyles from './styles/PaletteStyles';
 
@@ -51,12 +50,12 @@ import PaletteFooter from './PaletteFooter';
 //   }
 // });
 
-const SingleColorPalette = () => {
+const SingleColorPalette = ({ palettes }) => {
   const [format, setFormat] = useState('hex');
   const { paletteId, colorId } = useParams();
   const classes = useStyles();
 
-  const palette = generatePalette(findPalette(paletteId, seedColors));
+  const palette = generatePalette(findPalette(paletteId, palettes));
   const shades = gatherShades(palette, colorId);
 
   const colorBoxes = shades.map(color => (

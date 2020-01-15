@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import seedColors from './seedColors';
 import { generatePalette, findPalette } from './colorHelpers';
 import useStyles from './styles/PaletteStyles';
 
@@ -9,11 +8,11 @@ import Navbar from './Navbar';
 import ColorBox from './ColorBox';
 import PaletteFooter from './PaletteFooter';
 
-const Palette = () => {
+const Palette = ({ palettes }) => {
   const [level, setLevel] = useState(500);
   const [format, setFormat] = useState('hex');
   const { id } = useParams();
-  const palette = generatePalette(findPalette(id, seedColors));
+  const palette = generatePalette(findPalette(id, palettes));
 
   const classes = useStyles();
 

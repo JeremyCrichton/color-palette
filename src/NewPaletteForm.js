@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -76,12 +77,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const NewPaletteForm = () => {
+const NewPaletteForm = ({ savePalette }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
   const [currentColor, setCurrentColor] = useState('black');
   const [colors, setColors] = useState([]);
   const [newName, setNewName] = useState('');
+  const history = useHistory();
 
   useEffect(() => {
     console.log(colors);
@@ -119,11 +121,23 @@ const NewPaletteForm = () => {
     setNewName(e.target.value);
   };
 
+  const handleSavePalette = () => {
+    let newName = 'New Test Palette';
+    const newPalette = {
+      paletteName: newName,
+      id: newName.toLowerCase().replace(/ /g, '-'),
+      colors
+    };
+    savePalette(newPalette);
+    history.push('/');
+  };
+
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
         position="fixed"
+        color="default"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open
         })}
@@ -141,6 +155,13 @@ const NewPaletteForm = () => {
           <Typography variant="h6" noWrap>
             Persistent drawer
           </Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSavePalette}
+          >
+            Save Palette
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer
