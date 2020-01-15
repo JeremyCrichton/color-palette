@@ -77,13 +77,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const NewPaletteForm = ({ savePalette }) => {
+const NewPaletteForm = ({ savePalette, palettes }) => {
   const classes = useStyles();
+  const history = useHistory();
   const [open, setOpen] = useState(true);
   const [currentColor, setCurrentColor] = useState('black');
   const [colors, setColors] = useState([]);
-  const [newName, setNewName] = useState('');
-  const history = useHistory();
+  const [newColorName, setNewColorName] = useState('');
+  const [newPaletteName, setNewPaletteName] = useState('');
 
   useEffect(() => {
     console.log(colors);
@@ -96,6 +97,12 @@ const NewPaletteForm = ({ savePalette }) => {
     );
     ValidatorForm.addValidationRule('isColorUnique', value =>
       colors.every(({ color }) => color !== currentColor)
+    );
+    ValidatorForm.addValidationRule('isPaletteNameUnique', value =>
+      palettes.every(
+        ({ paletteName }) =>
+          paletteName.toLowerCase() !== newPaletteName.toLowerCase()
+      )
     );
   });
 
@@ -112,17 +119,21 @@ const NewPaletteForm = ({ savePalette }) => {
   };
 
   const addNewColor = e => {
-    const newColor = { color: currentColor, name: newName };
+    const newColor = { color: currentColor, name: newColorName };
     setColors([...colors, newColor]);
-    setNewName('');
+    setNewColorName('');
   };
 
-  const handleNameChange = e => {
-    setNewName(e.target.value);
+  // TODO: Combine these w/ custom hook??
+  const handleColorNameChange = e => {
+    setNewColorName(e.target.value);
+  };
+  const handlePaletteNameChange = e => {
+    setNewPaletteName(e.target.value);
   };
 
   const handleSavePalette = () => {
-    let newName = 'New Test Palette';
+    let newName = newPaletteName;
     const newPalette = {
       paletteName: newName,
       id: newName.toLowerCase().replace(/ /g, '-'),
@@ -155,13 +166,21 @@ const NewPaletteForm = ({ savePalette }) => {
           <Typography variant="h6" noWrap>
             Persistent drawer
           </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleSavePalette}
-          >
-            Save Palette
-          </Button>
+          <ValidatorForm onSubmit={handleSavePalette}>
+            <TextValidator
+              value={newPaletteName}
+              name="newPaletteName"
+              onChange={handlePaletteNameChange}
+              validators={['required', 'isPaletteNameUnique']}
+              errorMessages={[
+                'Enter a color name',
+                'Palette name must be unique'
+              ]}
+            />
+            <Button variant="contained" color="primary" type="submit">
+              Save Palette
+            </Button>
+          </ValidatorForm>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -196,15 +215,16 @@ const NewPaletteForm = ({ savePalette }) => {
         />
         <ValidatorForm onSubmit={addNewColor}>
           <TextValidator
-            value={newName}
-            onChange={handleNameChange}
+            value={newColorName}
+            name="newColorName"
+            onChange={handleColorNameChange}
             validators={['required', 'isColorNameUnique', 'isColorUnique']}
             errorMessages={[
               'Enter a color name',
               'Color name must be unique',
               'Color must be unique'
             ]}
-          ></TextValidator>
+          />
           <Button
             variant="contained"
             type="submit"

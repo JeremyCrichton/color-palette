@@ -20,7 +20,7 @@ function App() {
         <PaletteList palettes={palettes} />
       </Route>
       <Route exact path="/palette/new">
-        <NewPaletteForm savePalette={savePalette} />
+        <NewPaletteForm savePalette={savePalette} palettes={palettes} />
       </Route>
       <Route exact path="/palette/:id">
         <Palette palettes={palettes} />
