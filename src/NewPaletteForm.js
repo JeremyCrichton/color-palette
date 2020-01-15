@@ -13,9 +13,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { ChromePicker } from 'react-color';
 import { Button } from '@material-ui/core';
+import arrayMove from 'array-move';
 
-import DraggableColorBox from './DraggableColorBox';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import DraggableColorList from './DraggableColorList';
 
 const drawerWidth = 400;
 const appBarHeight = '64px';
@@ -147,6 +148,10 @@ const NewPaletteForm = ({ savePalette, palettes }) => {
     history.push('/');
   };
 
+  const onSortEnd = ({ oldIndex, newIndex }) => {
+    setColors(arrayMove(colors, oldIndex, newIndex));
+  };
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -246,14 +251,12 @@ const NewPaletteForm = ({ savePalette, palettes }) => {
       >
         <div className={classes.drawerHeader} />
 
-        {colors.map(color => (
-          <DraggableColorBox
-            key={color.name}
-            color={color.color}
-            name={color.name}
-            deleteColor={deleteColor}
-          />
-        ))}
+        <DraggableColorList
+          colors={colors}
+          deleteColor={deleteColor}
+          axis="xy"
+          onSortEnd={onSortEnd}
+        />
       </main>
     </div>
   );
