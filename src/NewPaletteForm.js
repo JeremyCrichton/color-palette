@@ -124,6 +124,10 @@ const NewPaletteForm = ({ savePalette, palettes }) => {
     setNewColorName('');
   };
 
+  const deleteColor = name => {
+    setColors(colors.filter(color => color.name !== name));
+  };
+
   // TODO: Combine these w/ custom hook??
   const handleColorNameChange = e => {
     setNewColorName(e.target.value);
@@ -247,6 +251,7 @@ const NewPaletteForm = ({ savePalette, palettes }) => {
             key={color.name}
             color={color.color}
             name={color.name}
+            deleteColor={deleteColor}
           />
         ))}
       </main>
