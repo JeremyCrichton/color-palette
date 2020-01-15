@@ -14,11 +14,16 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 const drawerWidth = 400;
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex'
+  },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
-    })
+    }),
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -31,6 +36,7 @@ const useStyles = makeStyles(theme => ({
   menuButton: {
     marginRight: theme.spacing(2)
   },
+  navBtns: {},
   hide: {
     display: 'none'
   }
@@ -59,7 +65,7 @@ const PaletteFormNav = ({
   };
 
   return (
-    <>
+    <div className={classes.root}>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -79,8 +85,10 @@ const PaletteFormNav = ({
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Persistent drawer
+            Create a palette
           </Typography>
+        </Toolbar>
+        <div className={classes.navBtns}>
           <ValidatorForm onSubmit={() => handleSavePalette(newPaletteName)}>
             <TextValidator
               value={newPaletteName}
@@ -95,15 +103,15 @@ const PaletteFormNav = ({
             <Button variant="contained" color="primary" type="submit">
               Save Palette
             </Button>
-            <Link to="/">
-              <Button variant="contained" color="secondary">
-                Go Back
-              </Button>
-            </Link>
           </ValidatorForm>
-        </Toolbar>
+          <Link to="/">
+            <Button variant="contained" color="secondary">
+              Go Back
+            </Button>
+          </Link>
+        </div>
       </AppBar>
-    </>
+    </div>
   );
 };
 
