@@ -1,5 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 
+import sizes from './sizes';
+
 export default makeStyles({
   Palette: {
     height: '100vh',
@@ -36,6 +38,18 @@ export default makeStyles({
       textAlign: 'center',
       border: 'none',
       cursor: 'pointer'
+    },
+    [sizes.down('lg')]: {
+      width: '25%',
+      height: '33.33333%'
+    },
+    [sizes.down('md')]: {
+      width: '50%',
+      height: '20%'
+    },
+    [sizes.down('sm')]: {
+      width: '100%',
+      height: '10%'
     }
   }
 });
