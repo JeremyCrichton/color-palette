@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
@@ -23,7 +23,8 @@ const useStyles = makeStyles(theme => ({
       duration: theme.transitions.duration.leavingScreen
     }),
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -36,7 +37,15 @@ const useStyles = makeStyles(theme => ({
   menuButton: {
     marginRight: theme.spacing(2)
   },
-  navBtns: {},
+  navBtns: {
+    marginRight: '1rem',
+    '& a': {
+      textDecoration: 'none'
+    }
+  },
+  button: {
+    margin: '0 0.5rem'
+  },
   hide: {
     display: 'none'
   }
@@ -49,6 +58,15 @@ const PaletteFormNav = ({
   handleSavePalette
 }) => {
   const classes = useStyles();
+  const [formShowing, setFormShowing] = useState(false);
+
+  const showForm = () => {
+    setFormShowing(true);
+  };
+
+  const hideForm = () => {
+    setFormShowing(false);
+  };
 
   return (
     <div className={classes.root}>
@@ -75,17 +93,32 @@ const PaletteFormNav = ({
           </Typography>
         </Toolbar>
         <div className={classes.navBtns}>
-          <PaletteMetaForm
-            palettes={palettes}
-            handleSavePalette={handleSavePalette}
-          />
           <Link to="/">
-            <Button variant="contained" color="secondary">
+            <Button
+              className={classes.button}
+              variant="contained"
+              color="secondary"
+            >
               Go Back
             </Button>
           </Link>
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+            onClick={showForm}
+          >
+            Save
+          </Button>
         </div>
       </AppBar>
+      {formShowing && (
+        <PaletteMetaForm
+          palettes={palettes}
+          handleSavePalette={handleSavePalette}
+          hideForm={hideForm}
+        />
+      )}
     </div>
   );
 };
