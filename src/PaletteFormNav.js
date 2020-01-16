@@ -69,58 +69,56 @@ const PaletteFormNav = ({
   };
 
   return (
-    <div>
-      <div className={classes.root}>
-        <CssBaseline />
-        <AppBar
-          position="fixed"
-          color="default"
-          className={clsx(classes.appBar, {
-            [classes.appBarShift]: open
-          })}
-        >
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              className={clsx(classes.menuButton, open && classes.hide)}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" noWrap>
-              Create a palette
-            </Typography>
-          </Toolbar>
-          <div className={classes.navBtns}>
-            <Link to="/">
-              <Button
-                className={classes.button}
-                variant="contained"
-                color="secondary"
-              >
-                Go Back
-              </Button>
-            </Link>
+    <div className={classes.root}>
+      <CssBaseline />
+      <AppBar
+        position="fixed"
+        color="default"
+        className={clsx(classes.appBar, {
+          [classes.appBarShift]: open
+        })}
+      >
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            className={clsx(classes.menuButton, open && classes.hide)}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap>
+            Create a palette
+          </Typography>
+        </Toolbar>
+        <div className={classes.navBtns}>
+          <Link to="/">
             <Button
               className={classes.button}
               variant="contained"
-              color="primary"
-              onClick={showForm}
+              color="secondary"
             >
-              Save
+              Go Back
             </Button>
-          </div>
-        </AppBar>
-        {formShowing && (
-          <PaletteMetaForm
-            palettes={palettes}
-            handleSavePalette={handleSavePalette}
-            hideForm={hideForm}
-          />
-        )}
-      </div>
+          </Link>
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+            onClick={showForm}
+          >
+            Save
+          </Button>
+        </div>
+      </AppBar>
+      {formShowing && (
+        <PaletteMetaForm
+          palettes={palettes}
+          handleSavePalette={handleSavePalette}
+          hideForm={hideForm}
+        />
+      )}
     </div>
   );
 };
