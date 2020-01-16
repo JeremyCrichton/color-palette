@@ -4,7 +4,7 @@ import { useHistory, Link } from 'react-router-dom';
 import useStyles from './styles/PaletteListStyles';
 import MiniPalette from './MiniPalette';
 
-const PaletteList = ({ palettes }) => {
+const PaletteList = ({ palettes, deletePalette }) => {
   const classes = useStyles();
   const history = useHistory();
 
@@ -25,6 +25,7 @@ const PaletteList = ({ palettes }) => {
               key={palette.id}
               {...palette}
               handleClick={() => goToPalette(palette.id)}
+              deletePalette={deletePalette}
             />
           ))}
         </div>

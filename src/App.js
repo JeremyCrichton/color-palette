@@ -21,10 +21,14 @@ function App() {
     setPalettes([...palettes, newPalette]);
   };
 
+  const deletePalette = id => {
+    setPalettes(palettes.filter(palette => palette.id !== id));
+  };
+
   return (
     <Switch>
       <Route exact path="/">
-        <PaletteList palettes={palettes} />
+        <PaletteList palettes={palettes} deletePalette={deletePalette} />
       </Route>
       <Route exact path="/palette/new">
         <NewPaletteForm savePalette={savePalette} palettes={palettes} />
