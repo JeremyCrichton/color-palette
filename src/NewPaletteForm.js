@@ -95,10 +95,11 @@ const NewPaletteForm = ({ savePalette, palettes }) => {
     setColors(colors.filter(color => color.name !== name));
   };
 
-  const handleSavePalette = newPaletteName => {
+  const handleSavePalette = ({ paletteName, emoji }) => {
     const newPalette = {
-      paletteName: newPaletteName,
-      id: newPaletteName.toLowerCase().replace(/ /g, '-'),
+      paletteName,
+      id: paletteName.toLowerCase().replace(/ /g, '-'),
+      emoji,
       colors
     };
     savePalette(newPalette);
