@@ -8,8 +8,9 @@ export default makeStyles({
     padding: '.5rem',
     position: 'relative',
     overflow: 'hidden',
-    '&:hover': {
-      cursor: 'pointer'
+    cursor: 'pointer',
+    '&:hover svg': {
+      opacity: 1
     }
   },
   colors: {
@@ -40,5 +41,19 @@ export default makeStyles({
     margin: '0 auto',
     position: 'relative',
     marginBottom: '-3.5px'
+  },
+  delete: {},
+  deleteIcon: {
+    color: 'white',
+    backgroundColor: 'red',
+    width: '20px',
+    height: '20px',
+    position: 'absolute',
+    top: '2px',
+    right: '2px',
+    zIndex: 10,
+    padding: '10px',
+    opacity: 0,
+    transition: 'all 0.5s ease-in'
   }
 });
