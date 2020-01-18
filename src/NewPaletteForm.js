@@ -128,6 +128,7 @@ const NewPaletteForm = ({ savePalette, palettes }) => {
           deleteColor={deleteColor}
           axis="xy"
           onSortEnd={onSortEnd}
+          distance={20}
         />
       </main>
     </div>
