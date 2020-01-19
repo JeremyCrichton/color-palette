@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory, Link, useLocation } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import useStyles from './styles/PaletteListStyles';
@@ -21,6 +21,7 @@ import red from '@material-ui/core/colors/red';
 const PaletteList = ({ palettes, deletePalette }) => {
   const classes = useStyles();
   const history = useHistory();
+  const location = useLocation();
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [deletePaletteId, setDeletePaletteId] = useState('');
 
@@ -42,6 +43,24 @@ const PaletteList = ({ palettes, deletePalette }) => {
     history.push(`/palette/${id}`);
   };
 
+  const miniPalettes = palettes.map(palette => (
+    <CSSTransition
+      key={palette.id}
+      location={location}
+      classNames="fade"
+      timeout={500}
+    >
+      <MiniPalette
+        key={palette.id}
+        {...palette}
+        goToPalette={goToPalette}
+        openDeleteDialog={openDialog}
+      />
+    </CSSTransition>
+  ));
+
+  console.log('PaletteList renders');
+
   return (
     <div className={classes.root}>
       <div className={classes.container}>
@@ -50,16 +69,7 @@ const PaletteList = ({ palettes, deletePalette }) => {
           <Link to="/palette/new">Create Palette</Link>
         </nav>
         <TransitionGroup className={classes.palettes}>
-          {palettes.map(palette => (
-            <CSSTransition key={palette.id} classNames="fade" timeout={500}>
-              <MiniPalette
-                key={palette.id}
-                {...palette}
-                handleClick={() => goToPalette(palette.id)}
-                openDeleteDialog={openDialog}
-              />
-            </CSSTransition>
-          ))}
+          {miniPalettes}
         </TransitionGroup>
       </div>
       <Dialog

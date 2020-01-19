@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import useStyles from './styles/MiniPaletteStyles';
 import DeleteIcon from '@material-ui/icons/Delete';
 
@@ -6,7 +6,7 @@ const MiniPalette = ({
   paletteName,
   emoji,
   colors,
-  handleClick,
+  goToPalette,
   openDeleteDialog,
   id
 }) => {
@@ -19,10 +19,16 @@ const MiniPalette = ({
     ></div>
   ));
 
+  const handleClick = () => {
+    goToPalette(id);
+  };
+
   const handleClickDelete = e => {
     e.stopPropagation();
     openDeleteDialog(id);
   };
+
+  console.log('Rendering: ', paletteName);
 
   return (
     <div className={classes.root} onClick={handleClick}>
@@ -35,4 +41,4 @@ const MiniPalette = ({
   );
 };
 
-export default MiniPalette;
+export default memo(MiniPalette);

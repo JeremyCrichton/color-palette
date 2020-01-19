@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import clsx from 'clsx';
 
 import useStyles from './styles/ColorBoxStyles';
 
@@ -25,11 +26,13 @@ const ColorBox = ({
         {/* Use a separate div here instead of growing the parent because that would grow the contents too */}
         <div
           style={{ background }}
-          className={`${classes.copyOverlay} ${copied && classes.showOverlay}`}
+          className={clsx(classes.copyOverlay, copied && classes.showOverlay)}
         />
         <div
-          className={`${classes.copyMessage} ${copied &&
-            classes.showCopyMessage}`}
+          className={clsx(
+            classes.copyMessage,
+            copied && classes.showCopyMessage
+          )}
         >
           <h1>copied!</h1>
           <p className={classes.copyText}>{background}</p>
