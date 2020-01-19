@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, useLocation } from 'react-router-dom';
 
 import seedColors from './seedColors';
 import Palette from './Palette';
 import PaletteList from './PaletteList';
 import SingleColorPalette from './SingleColorPalette';
 import NewPaletteForm from './NewPaletteForm';
+import { AnimatedSwitch } from './AnimatedSwitch';
 
 function App() {
   const savedPalettes = JSON.parse(window.localStorage.getItem('palettes'));
   const [palettes, setPalettes] = useState(savedPalettes || seedColors);
+  const location = useLocation();
 
   useEffect(() => {
     // Save to local storage whenever palettes changes
@@ -26,7 +28,7 @@ function App() {
   };
 
   return (
-    <Switch>
+    <AnimatedSwitch location={location}>
       <Route exact path="/">
         <PaletteList palettes={palettes} deletePalette={deletePalette} />
       </Route>
@@ -39,7 +41,7 @@ function App() {
       <Route exact path="/palette/:paletteId/:colorId">
         <SingleColorPalette palettes={palettes} />
       </Route>
-    </Switch>
+    </AnimatedSwitch>
   );
 }
 

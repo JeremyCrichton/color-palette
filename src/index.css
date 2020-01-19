@@ -11,3 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.page {
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: fixed;
+  width: 100vw;
+}
