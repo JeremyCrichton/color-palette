@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Route, useLocation } from 'react-router-dom';
-
-import seedColors from './seedColors';
 import Palette from './Palette';
 import PaletteList from './PaletteList';
 import SingleColorPalette from './SingleColorPalette';
 import NewPaletteForm from './NewPaletteForm';
 import { AnimatedSwitch } from './AnimatedSwitch';
+import seedColors from './seedColors';
 
 function App() {
   const savedPalettes = JSON.parse(window.localStorage.getItem('palettes'));
