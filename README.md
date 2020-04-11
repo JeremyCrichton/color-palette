@@ -2,7 +2,7 @@
 
 ## Description
 
-An frontend React app for creating color palettes.
+A React app for creating color palettes.
 
 ## Stack
 
